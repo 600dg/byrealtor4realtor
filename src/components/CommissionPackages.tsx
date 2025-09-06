@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
-import { ClipboardDocumentListIcon } from "@heroicons/react/24/solid";
+import { HomeModernIcon } from "@heroicons/react/24/solid";
 import { RocketLaunchIcon, BanknotesIcon } from "@heroicons/react/24/outline";
 
 const CommissionPackages = () => {
@@ -38,7 +38,7 @@ const CommissionPackages = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center space-x-2 bg-primary/10 rounded-full px-6 py-3 mb-6" style={{fontFamily: 'Inter, Arial, sans-serif'}}>
-            <ClipboardDocumentListIcon className="w-5 h-5 text-primary" />
+            <HomeModernIcon className="w-5 h-5 text-primary" />
             <span className="text-primary font-semibold">Flexible Commission Options</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
