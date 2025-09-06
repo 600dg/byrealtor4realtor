@@ -8,68 +8,53 @@ const Hero = () => {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img 
+dhruv/dev
+          src="/background main.png" 
+          alt="Main Background" 
+          className="w-full h-full object-cover blur-sm" // reduced blur
+        />
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+        <div className="absolute inset-0 bg-gradient-hero opacity-60"></div>
+
           src="/Lakeside Twilight Retreat.png" 
           alt="Lakeside Retreat" 
           className="w-full h-full object-cover blur-lg" // blur the background
         />
         <div className="absolute inset-0 bg-gradient-hero opacity-70"></div>
+main
       </div>
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 py-20 text-center">
         <div className="max-w-4xl mx-auto">
-          {/* Badge */}
-          <div className="inline-flex items-center space-x-2 bg-secondary/20 backdrop-blur-sm rounded-full px-6 py-3 mb-8 border border-secondary/30 animate-fade-in">
-            <Star className="w-5 h-5 text-secondary fill-current" />
-            <span className="text-secondary font-semibold">#1 Real Estate Growth Platform</span>
-          </div>
 
-          {/* Main Headline */}
-          <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-6 animate-slide-up">
-            Transform Your 
-            <span className="bg-gradient-secondary bg-clip-text text-transparent"> Real Estate Career</span>
-          </h1>
+          {/* Main Headline with red and gold */}
+          {/* New tagline */}
+          {/* Summary section */}
+              {/* Main focus: for realtors, by realtors. */}
+              <h2 className="text-6xl md:text-8xl font-extrabold text-primary mb-8 animate-slide-up text-center" style={{fontFamily: 'Playfair Display, serif'}}>
+                <span>for realtors,</span><br />
+                <span>by realtors.</span>
+              </h2>
+              <div className="mb-4 animate-slide-up text-center" style={{fontFamily: 'Inter, Arial, sans-serif'}}>
+                <h1 className="text-xl md:text-3xl font-bold text-white">
+                  Transform Your Real Estate Career
+                </h1>
+              </div>
+              <p className="text-xl md:text-2xl text-white leading-relaxed mb-10 text-center" style={{fontFamily: 'Inter, Arial, sans-serif'}}>
+                We turn 10+ years of industry know-how into your unfair advantage. Get templates, training, mentorship, and ready-to-use listings so you can focus on closing. Work with Rising Star Realty and plug into a complete growth system.
+              </p>
 
-          {/* Subheadline */}
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed animate-slide-up delay-100">
-            Join Canada's fastest-growing real estate network. Get exclusive leads, premium tools, and the support you need to close more deals than ever before.
-          </p>
+          {/* Subheadline removed */}
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-12 animate-slide-up delay-200">
-            <Button variant="hero" size="xl" className="group">
-              Start Your Success Story
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          {/* CTA Button */}
+          <div className="flex flex-col items-center justify-center mb-12 animate-slide-up delay-200">
+            <Button variant="cta" size="xl" className="group bg-primary text-white text-xl px-8 py-4 rounded-full shadow-lg hover:bg-secondary hover:text-white transition-all" style={{fontFamily: 'Inter, sans-serif'}}>
+              <span className="text-white">Join the team and grow</span>
             </Button>
-            <Button variant="premium" size="xl">
-              Watch Demo (2 min)
-            </Button>
           </div>
 
-          {/* Social Proof Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto animate-slide-up delay-300">
-            <div className="text-center">
-              <div className="flex items-center justify-center mb-2">
-                <TrendingUp className="w-6 h-6 text-secondary mr-2" />
-                <span className="text-3xl font-bold text-foreground">300%</span>
-              </div>
-              <p className="text-muted-foreground">Average Income Increase</p>
-            </div>
-            <div className="text-center">
-              <div className="flex items-center justify-center mb-2">
-                <Users className="w-6 h-6 text-secondary mr-2" />
-                <span className="text-3xl font-bold text-foreground">2,500+</span>
-              </div>
-              <p className="text-muted-foreground">Successful Realtors</p>
-            </div>
-            <div className="text-center">
-              <div className="flex items-center justify-center mb-2">
-                <Star className="w-6 h-6 text-secondary mr-2 fill-current" />
-                <span className="text-3xl font-bold text-foreground">4.9/5</span>
-              </div>
-              <p className="text-muted-foreground">Success Rating</p>
-            </div>
-          </div>
+          {/* Social Proof Stats removed */}
         </div>
       </div>
 
