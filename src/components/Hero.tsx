@@ -8,7 +8,6 @@ const Hero = () => {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img 
-dhruv/dev
           src="/background main.png" 
           alt="Main Background" 
           className="w-full h-full object-cover blur-sm" // reduced blur
@@ -19,7 +18,6 @@ dhruv/dev
           src="/Lakeside Twilight Retreat.png" 
           alt="Lakeside Retreat" 
           className="w-full h-full object-cover blur-lg" // blur the background
-        />
         <div className="absolute inset-0 bg-gradient-hero opacity-70"></div>
 main
       </div>
