@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star, TrendingUp, Users } from "lucide-react";
-import heroImage from "@/assets/hero-home.jpg";
+// Use public image for hero background
 
 const Hero = () => {
   return (
@@ -8,11 +8,11 @@ const Hero = () => {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img 
-          src={heroImage} 
-          alt="Luxury modern home with premium architecture" 
-          className="w-full h-full object-cover"
+          src="/Lakeside Twilight Retreat.png" 
+          alt="Lakeside Retreat" 
+          className="w-full h-full object-cover blur-lg" // blur the background
         />
-        <div className="absolute inset-0 bg-gradient-hero opacity-90"></div>
+        <div className="absolute inset-0 bg-gradient-hero opacity-70"></div>
       </div>
 
       {/* Content */}
