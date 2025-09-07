@@ -25,7 +25,7 @@ const LeadCapture = () => {
   ];
 
   return (
-    <section className="py-20 relative overflow-hidden" style={{background: 'linear-gradient(rgba(30,20,20,0.7), rgba(30,20,20,0.7)), #fff'}}>
+    <section id="lead-capture" className="py-20 relative overflow-hidden" style={{background: 'linear-gradient(rgba(30,20,20,0.7), rgba(30,20,20,0.7)), #fff'}}>
       {/* Background Elements */}
       <div className="absolute top-10 left-10 w-32 h-32 bg-secondary/20 rounded-full blur-2xl animate-float"></div>
       <div className="absolute bottom-10 right-10 w-24 h-24 bg-accent/20 rounded-full blur-xl animate-float delay-1000"></div>
