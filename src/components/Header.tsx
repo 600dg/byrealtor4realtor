@@ -78,7 +78,7 @@ const Header = () => {
               className="text-lg font-bold hover:bg-[#a43434] transition-colors"
               onClick={() => smoothScrollTo('lead-capture')}
             >
-              Join Rising Star
+              BE THE BOSS
             </Button>
           </div>
           {/* Mobile Menu Button */}

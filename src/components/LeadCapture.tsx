@@ -1,168 +1,227 @@
+import { FormEvent, useState } from "react";
+import {
+  CheckCircleIcon,
+  ShieldCheckIcon,
+  BuildingOfficeIcon,
+} from "@heroicons/react/24/solid";
+import {
+  EnvelopeIcon,
+  PhoneIcon,
+  UserIcon,
+} from "@heroicons/react/24/outline";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { CheckCircle, Gift, ArrowRight, Star } from "lucide-react";
-import { useState } from "react";
+import { ArrowRight } from "lucide-react";
 
-const LeadCapture = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    experience: '',
-    goals: ''
-  });
-
-  const benefits = [
-    "Exclusive market analysis report ($500 value)",
-    "Personal consultation with top producer",
-    "Access to our lead generation system",
-    "Free marketing materials package",
-    "30-day success guarantee"
-  ];
+export default function JoinTeamSection() {
+  const [loading, setLoading] = useState(false);
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    const fd = new FormData(e.currentTarget);
+    // TODO: replace with your submit handler (fetch/axios)
+    console.log(Object.fromEntries(fd.entries()));
+    setTimeout(() => setLoading(false), 800); // demo only
+  };
 
   return (
-    <section id="lead-capture" className="py-20 relative overflow-hidden" style={{background: 'linear-gradient(rgba(30,20,20,0.7), rgba(30,20,20,0.7)), #fff'}}>
-      {/* Background Elements */}
-      <div className="absolute top-10 left-10 w-32 h-32 bg-secondary/20 rounded-full blur-2xl animate-float"></div>
-      <div className="absolute bottom-10 right-10 w-24 h-24 bg-accent/20 rounded-full blur-xl animate-float delay-1000"></div>
+    <section
+      id="join"
+      className="relative isolate py-20 md:py-28"
+      style={{
+        background:
+          "linear-gradient(180deg, rgba(164,52,52,0.15) 0%, rgba(164,52,52,0.2) 50%, rgba(164,52,52,0.25) 100%)",
+      }}
+    >
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Eyebrow */}
+        <div className="text-center mb-16">
+          <div
+            className="inline-flex items-center space-x-2 bg-primary/10 rounded-full px-6 py-3 mb-6"
+            style={{ fontFamily: "Inter, Arial, sans-serif" }}
+          >
+            <BuildingOfficeIcon className="w-5 h-5 text-primary" />
+            <span className="text-primary font-semibold">Join the Team and Grow</span>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-black">
+            Start Your <span className="text-[#a43434]">Top Producer</span> Year
+          </h2>
+        </div>
 
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Side - Value Proposition */}
-          <div className="text-center lg:text-left">
-            <div className="inline-flex items-center space-x-2 bg-secondary/20 backdrop-blur-sm rounded-full px-6 py-3 mb-6 border border-secondary/30">
-              <Gift className="w-5 h-5 text-secondary" />
-              <span className="text-secondary font-semibold">Limited Time Offer</span>
-            </div>
-
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Ready to <span className="bg-gradient-secondary bg-clip-text text-transparent">10X Your Income?</span>
-            </h2>
-
-            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              Join over 2,500 successful realtors who've transformed their careers with Rising Star Realty. Get started today with our exclusive welcome package.
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          {/* Left: pitch + proof */}
+          <div className="lg:col-span-6 xl:col-span-6">
+            <p className="mt-4 text-black text-lg">
+              Get instant access to resources, mentorship, and a personal plan to grow your
+              real estate business.
             </p>
 
-            {/* Benefits List */}
-            <div className="space-y-4 mb-8">
-              {benefits.map((benefit, index) => (
-                <div key={index} className="flex items-center space-x-3">
-                  <CheckCircle className="w-6 h-6 text-secondary flex-shrink-0" />
-                  <span className="text-foreground">{benefit}</span>
-                </div>
+            <ul className="mt-6 space-y-3">
+              {[
+                "Exclusive market insights report",
+                "1:1 consult with a top producer",
+                "Lead-gen system access",
+                "Free marketing templates & ad assets",
+                "30-day success plan",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <CheckCircleIcon className="h-5 w-5 text-[#a43434] shrink-0" />
+                  <span className="text-black">{item}</span>
+                </li>
               ))}
-            </div>
+            </ul>
 
-            {/* Social Proof */}
-            <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-              <div className="flex -space-x-2">
-                {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="w-8 h-8 bg-gradient-primary rounded-full border-2 border-background"></div>
-                ))}
-              </div>
-              <div>
-                <div className="flex items-center space-x-1 text-secondary">
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <Star key={i} className="w-4 h-4 fill-current" />
-                  ))}
-                </div>
-                <span>Trusted by 2,500+ realtors</span>
-              </div>
+            <div className="mt-8 flex items-center gap-3 text-sm text-black">
+              <ShieldCheckIcon className="h-5 w-5 text-[#a43434]" />
+              <span>Trusted by 2,500+ realtors • Your information stays private</span>
             </div>
           </div>
 
-          {/* Right Side - Lead Capture Form */}
-          <Card className="shadow-luxury bg-gradient-card backdrop-blur-sm border-border/50">
-            <CardHeader className="text-center">
-              <CardTitle className="text-2xl font-bold text-foreground">
-                Start Your Success Journey
-              </CardTitle>
-              <CardDescription className="text-muted-foreground">
-                Fill out this form to get instant access to our exclusive resources and a personal consultation.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="name">Full Name *</Label>
-                <Input 
-                  id="name"
-                  placeholder="Enter your full name"
-                  value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="h-12"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="email">Email Address *</Label>
-                <Input 
-                  id="email"
-                  type="email"
-                  placeholder="your.email@example.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  className="h-12"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="phone">Phone Number *</Label>
-                <Input 
-                  id="phone"
-                  type="tel"
-                  placeholder="(555) 123-4567"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                  className="h-12"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="experience">Real Estate Experience</Label>
-                <Select value={formData.experience} onValueChange={(value) => setFormData({...formData, experience: value})}>
-                  <SelectTrigger className="h-12">
-                    <SelectValue placeholder="Select your experience level" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="new">New to Real Estate</SelectItem>
-                    <SelectItem value="1-2">1-2 Years Experience</SelectItem>
-                    <SelectItem value="3-5">3-5 Years Experience</SelectItem>
-                    <SelectItem value="5+">5+ Years Experience</SelectItem>
-                    <SelectItem value="veteran">Veteran (10+ Years)</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="goals">What are your income goals?</Label>
-                <Textarea 
-                  id="goals"
-                  placeholder="Tell us about your goals and what success looks like to you..."
-                  value={formData.goals}
-                  onChange={(e) => setFormData({...formData, goals: e.target.value})}
-                  className="min-h-[100px]"
-                />
-              </div>
-
-              <Button variant="hero" size="lg" className="w-full group">
-                Get My Success Package Now
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-
-              <p className="text-xs text-muted-foreground text-center">
-                By submitting this form, you agree to receive communications from Rising Star Realty. 
-                We respect your privacy and will never spam you.
+          {/* Right: form card */}
+          <div className="lg:col-span-6 xl:col-span-6">
+            <div className="rounded-2xl border border-rose-200/60 bg-white/70 backdrop-blur-sm ring-1 ring-black/5 shadow-[0_1px_0_#fff_inset,0_12px_32px_rgba(0,0,0,.06)] p-6 md:p-8">
+              <h3 className="text-2xl font-semibold text-black">
+                Start Your <span className="text-[#b69532]">Success Journey</span>
+              </h3>
+              <p className="mt-1 text-black">
+                Fill out the form to get your welcome kit and a consultation.
               </p>
-            </CardContent>
-          </Card>
+
+              <form className="mt-6 space-y-5" onSubmit={onSubmit} noValidate>
+                {/* Name */}
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-black">
+                    Full Name *
+                  </label>
+                  <div className="mt-1 relative">
+                    <input
+                      id="name"
+                      name="name"
+                      required
+                      className="w-full rounded-xl border border-neutral-200 bg-white/80 px-3 py-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#b69532] focus:border-[#b69532]"
+                      placeholder="Enter your full name"
+                    />
+                    <UserIcon className="h-5 w-5 text-[#b69532] absolute right-3 top-3" />
+                  </div>
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-black">
+                    Email Address *
+                  </label>
+                  <div className="mt-1 relative">
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      required
+                      className="w-full rounded-xl border border-neutral-200 bg-white/80 px-3 py-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#b69532] focus:border-[#b69532]"
+                      placeholder="your.email@example.com"
+                    />
+                    <EnvelopeIcon className="h-5 w-5 text-[#b69532] absolute right-3 top-3" />
+                  </div>
+                </div>
+
+                {/* Phone */}
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-black">
+                    Phone Number *
+                  </label>
+                  <div className="mt-1 relative">
+                    <input
+                      id="phone"
+                      name="phone"
+                      required
+                      className="w-full rounded-xl border border-neutral-200 bg-white/80 px-3 py-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#b69532] focus:border-[#b69532]"
+                      placeholder="(555) 123-4567"
+                    />
+                    <PhoneIcon className="h-5 w-5 text-[#b69532] absolute right-3 top-3" />
+                  </div>
+                </div>
+
+                {/* Experience */}
+                <div>
+                  <label htmlFor="experience" className="block text-sm font-medium text-black">
+                    Real Estate Experience
+                  </label>
+                  <select
+                    id="experience"
+                    name="experience"
+                    className="mt-1 w-full rounded-xl border border-neutral-200 bg-white/80 px-3 py-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#b69532] focus:border-[#b69532]"
+                    defaultValue=""
+                  >
+                    <option value="" disabled>
+                      Select your experience level
+                    </option>
+                    <option>Beginner</option>
+                    <option>1–3 years</option>
+                    <option>3–7 years</option>
+                    <option>7+ years</option>
+                  </select>
+                </div>
+
+                {/* Package interest */}
+                <div>
+                  <label htmlFor="package" className="block text-sm font-medium text-black">
+                    Package Interest
+                  </label>
+                  <select
+                    id="package"
+                    name="package"
+                    className="mt-1 w-full rounded-xl border border-neutral-200 bg-white/80 px-3 py-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#b69532] focus:border-[#b69532]"
+                    defaultValue=""
+                  >
+                    <option value="" disabled>
+                      Choose a package
+                    </option>
+                    <option>90/10 Standard</option>
+                    <option>80/20 Rising Star</option>
+                    <option>Not sure yet</option>
+                  </select>
+                </div>
+
+                {/* Goals */}
+                <div>
+                  <label htmlFor="goals" className="block text-sm font-medium text-black">
+                    What are your income goals?
+                  </label>
+                  <textarea
+                    id="goals"
+                    name="goals"
+                    rows={4}
+                    className="mt-1 w-full rounded-xl border border-neutral-200 bg-white/80 px-3 py-2.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#b69532] focus:border-[#b69532]"
+                    placeholder="Tell us about your goals and what success looks like to you..."
+                  />
+                </div>
+
+                {/* Consent */}
+                <label className="flex items-start gap-3 text-sm text-black">
+                  <input
+                    type="checkbox"
+                    name="consent"
+                    required
+                    className="mt-1 h-4 w-4 rounded border-neutral-300 text-[#a43434] focus:ring-[#a43434]"
+                  />
+                  <span>
+                    By submitting, you agree to be contacted by email/SMS. No spam. Opt out anytime.
+                  </span>
+                </label>
+
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  variant="outline"
+                  className="w-full group font-bold"
+                  style={{ fontFamily: "Playfair Display, serif" }}
+                >
+                  {loading ? "Submitting..." : "Get My Welcome Kit"}
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
-};
-
-export default LeadCapture;
+}
