@@ -43,7 +43,7 @@ export default function JoinTeamSection() {
             <span className="text-primary font-semibold">Join the Team and Grow</span>
           </div>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-black">
-            Start Your <span className="text-[#a43434]">Top Producer</span> Year
+            Start Becoming a <span className="text-[#a43434]">Top Producer</span> Now
           </h2>
         </div>
 

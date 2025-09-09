@@ -25,8 +25,8 @@ const Hero = () => {
           {/* Summary section */}
               {/* Main focus: for realtors, by realtors. */}
               <h2 className="text-6xl md:text-8xl font-extrabold text-primary mb-8 animate-slide-up text-center" style={{fontFamily: 'Playfair Display, serif'}}>
-                <span>for realtors,</span><br />
-                <span>by realtors.</span>
+                <span>For Realtors,</span><br />
+                <span>By Realtors.</span>
               </h2>
               <div className="mb-4 animate-slide-up text-center" style={{fontFamily: 'Inter, Arial, sans-serif'}}>
                 <h1 className="text-xl md:text-3xl font-bold text-white">
