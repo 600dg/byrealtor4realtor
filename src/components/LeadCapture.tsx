@@ -25,7 +25,7 @@ export default function JoinTeamSection() {
 
   return (
     <section
-      id="join"
+      id="lead-capture"
       className="relative isolate py-20 md:py-28"
       style={{
         background:
@@ -43,7 +43,7 @@ export default function JoinTeamSection() {
             <span className="text-primary font-semibold">Join the Team and Grow</span>
           </div>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-black">
-            Start Becoming a <span className="text-[#a43434]">Top Producer</span> Now
+            Start Becoming a <span className="text-[#a43434]">Top Producer</span> Today
           </h2>
         </div>
 

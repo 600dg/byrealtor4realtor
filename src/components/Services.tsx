@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Target, Zap, Shield, Trophy, ArrowRight, Users, BarChart3, HeadphonesIcon, Megaphone, MegaphoneOffIcon } from "lucide-react";
 import { HomeModernIcon } from "@heroicons/react/24/solid";
+import { smoothScrollTo } from "@/lib/utils";
 import { MegaphoneIcon, RocketLaunchIcon, Squares2X2Icon} from "@heroicons/react/24/outline";
 
 const Services = () => {
@@ -76,17 +77,7 @@ const Services = () => {
                   variant="outline" 
                   className="w-full group font-bold" 
                   style={{fontFamily: 'Playfair Display, serif'}}
-                  onClick={() => {
-                    const element = document.getElementById('lead-capture');
-                    if (element) {
-                      const headerHeight = 120;
-                      const elementPosition = element.offsetTop - headerHeight;
-                      window.scrollTo({
-                        top: elementPosition,
-                        behavior: 'smooth'
-                      });
-                    }
-                  }}
+                  onClick={() => smoothScrollTo('lead-capture')}
                 >
                   {service.cta}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

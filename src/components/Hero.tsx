@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star, TrendingUp, Users } from "lucide-react";
+import { smoothScrollTo } from "@/lib/utils";
 // Use public image for hero background
 
 const Hero = () => {
@@ -46,17 +47,7 @@ const Hero = () => {
               size="xl" 
               className="group bg-primary text-white text-xl px-8 py-4 rounded-full shadow-lg hover:bg-secondary hover:text-white transition-all" 
               style={{fontFamily: 'Inter, sans-serif'}}
-              onClick={() => {
-                const element = document.getElementById('lead-capture');
-                if (element) {
-                  const headerHeight = 120;
-                  const elementPosition = element.offsetTop - headerHeight;
-                  window.scrollTo({
-                    top: elementPosition,
-                    behavior: 'smooth'
-                  });
-                }
-              }}
+              onClick={() => smoothScrollTo('lead-capture')}
             >
               <span className="text-white">Join the team and grow</span>
             </Button>
