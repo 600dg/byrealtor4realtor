@@ -48,7 +48,7 @@ const Testimonials = () => {
   ];
 
   return (
-    <section id="testimonials" className="py-20 bg-background">
+    <section id="testimonials" className="py-20" style={{background: 'linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(164,52,52,0.1) 50%, rgba(164,52,52,0.15) 100%)'}}>
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">

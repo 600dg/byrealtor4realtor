@@ -30,7 +30,7 @@ const Services = () => {
   ];
 
   return (
-  <section id="services" className="py-20" style={{background: 'linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(164,52,52,0.15) 100%)'}}>
+  <section id="services" className="py-20" style={{background: 'linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 50%, rgba(164,52,52,0.1) 100%)'}}>
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -72,7 +72,22 @@ const Services = () => {
                     </li>
                   ))}
                 </ul>
-                <Button variant="outline" className="w-full group font-bold" style={{fontFamily: 'Playfair Display, serif'}}>
+                <Button 
+                  variant="outline" 
+                  className="w-full group font-bold" 
+                  style={{fontFamily: 'Playfair Display, serif'}}
+                  onClick={() => {
+                    const element = document.getElementById('lead-capture');
+                    if (element) {
+                      const headerHeight = 120;
+                      const elementPosition = element.offsetTop - headerHeight;
+                      window.scrollTo({
+                        top: elementPosition,
+                        behavior: 'smooth'
+                      });
+                    }
+                  }}
+                >
                   {service.cta}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Button>

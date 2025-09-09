@@ -56,9 +56,9 @@
   --ring: 47 59% 45%; /* Gold ring */
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, hsl(0 56% 42% / 0.15), hsl(47 59% 45% / 0.15)); /* Subtle Red to Gold */
-  --gradient-secondary: linear-gradient(135deg, hsl(0 56% 42% / 0.10), hsl(47 59% 45% / 0.10)); /* Subtle Red to Gold */
-  --gradient-hero: linear-gradient(135deg, hsl(0 56% 42% / 0.12) 0%, hsl(47 59% 45% / 0.12) 100%);
+  --gradient-primary: linear-gradient(135deg, hsl(195 100% 45% / 0.08), hsl(47 59% 45% / 0.08)); /* Subtle Blue to Gold */
+  --gradient-secondary: linear-gradient(135deg, hsl(195 100% 45% / 0.06), hsl(47 59% 45% / 0.06)); /* Subtle Blue to Gold */
+  --gradient-hero: linear-gradient(135deg, hsl(195 100% 45% / 0.06) 0%, hsl(47 59% 45% / 0.06) 100%);
   --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(47 59% 45% / 0.08)); /* White to subtle Gold */
 
   /* Shadows */
@@ -130,10 +130,10 @@
   --ring: 47 59% 45%; /* Gold ring */
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, hsl(0 56% 42%), hsl(47 59% 45%)); /* Red to Gold */
-  --gradient-secondary: linear-gradient(135deg, hsl(0 56% 42%), hsl(47 59% 45%)); /* Red to Gold */
-  --gradient-hero: linear-gradient(135deg, hsl(0 56% 42%) 0%, hsl(47 59% 45%) 100%);
-  --gradient-card: linear-gradient(145deg, hsl(0 0% 10%), hsl(47 59% 45%)); /* Black to Gold */
+  --gradient-primary: linear-gradient(135deg, hsl(195 100% 45% / 0.12), hsl(47 59% 45% / 0.12)); /* Blue to Gold */
+  --gradient-secondary: linear-gradient(135deg, hsl(195 100% 45% / 0.10), hsl(47 59% 45% / 0.10)); /* Blue to Gold */
+  --gradient-hero: linear-gradient(135deg, hsl(195 100% 45% / 0.08) 0%, hsl(47 59% 45% / 0.08) 100%);
+  --gradient-card: linear-gradient(145deg, hsl(0 0% 10%), hsl(47 59% 45% / 0.12)); /* Black to Gold */
 
   /* Shadows */
   --shadow-luxury: 0 25px 50px -12px hsl(0 56% 42% / 0.25); /* Red shadow */
@@ -194,6 +194,11 @@
 
   /* Smooth scrolling */
   html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Ensure smooth scrolling works on all browsers */
+  * {
     scroll-behavior: smooth;
   }
 

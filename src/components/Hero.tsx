@@ -10,16 +10,10 @@ const Hero = () => {
         <img 
           src="/background main.png" 
           alt="Main Background" 
-          className="w-full h-full object-cover blur-sm" // reduced blur
+          className="w-full h-full object-cover blur-sm"
         />
         <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="absolute inset-0 bg-gradient-hero opacity-60"></div>
-
-          src="/Lakeside Twilight Retreat.png" 
-          alt="Lakeside Retreat" 
-          className="w-full h-full object-cover blur-lg" // blur the background
-        <div className="absolute inset-0 bg-gradient-hero opacity-70"></div>
-main
+        <div className="absolute inset-0 bg-gradient-hero opacity-30"></div>
       </div>
 
       {/* Content */}
@@ -47,7 +41,23 @@ main
 
           {/* CTA Button */}
           <div className="flex flex-col items-center justify-center mb-12 animate-slide-up delay-200">
-            <Button variant="cta" size="xl" className="group bg-primary text-white text-xl px-8 py-4 rounded-full shadow-lg hover:bg-secondary hover:text-white transition-all" style={{fontFamily: 'Inter, sans-serif'}}>
+            <Button 
+              variant="cta" 
+              size="xl" 
+              className="group bg-primary text-white text-xl px-8 py-4 rounded-full shadow-lg hover:bg-secondary hover:text-white transition-all" 
+              style={{fontFamily: 'Inter, sans-serif'}}
+              onClick={() => {
+                const element = document.getElementById('lead-capture');
+                if (element) {
+                  const headerHeight = 120;
+                  const elementPosition = element.offsetTop - headerHeight;
+                  window.scrollTo({
+                    top: elementPosition,
+                    behavior: 'smooth'
+                  });
+                }
+              }}
+            >
               <span className="text-white">Join the team and grow</span>
             </Button>
           </div>
