@@ -51,12 +51,6 @@ const Header = () => {
               Services
             </button>
             <button
-              onClick={() => smoothScrollTo('commission')}
-              className="text-[#b69532] hover:text-white transition-colors cursor-pointer"
-            >
-              Commission Packages
-            </button>
-            <button
               onClick={() => smoothScrollTo('testimonials')}
               className="text-[#b69532] hover:text-white transition-colors cursor-pointer"
             >
