@@ -5,16 +5,17 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  padding: 0; /* edge-to-edge by default */
 }
 
 .step-circle-container {
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  max-width: 26rem; /* xs wider */
+  max-width: none; /* fill available width */
+  min-width: 0;
   border-radius: 1.5rem;
-  padding: 1rem;
+  padding: 0.5rem; /* slight inner breathing room */
   background: transparent;
   backdrop-filter: none;
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -22,34 +23,34 @@
 }
 
 @media (min-width: 640px) {
-  .step-circle-container { max-width: 34rem; min-width: 28rem; padding: 1.25rem; }
+  .step-circle-container { max-width: none; min-width: 0; padding: 0.75rem; }
 }
 
 @media (min-width: 768px) {
-  .step-circle-container { max-width: 44rem; min-width: 36rem; padding: 1.5rem; }
+  .step-circle-container { max-width: none; min-width: 0; padding: 1rem; }
 }
 
 @media (min-width: 1024px) {
-  .step-circle-container { max-width: 72rem; min-width: 56rem; padding: 2rem; }
+  .step-circle-container { max-width: none; min-width: 0; padding: 1.25rem; }
 }
 
 @media (min-width: 1280px) {
-  .step-circle-container { max-width: 80rem; min-width: 64rem; }
+  .step-circle-container { max-width: none; min-width: 0; }
 }
 
 @media (min-width: 1536px) {
-  .step-circle-container { max-width: 96rem; min-width: 72rem; }
+  .step-circle-container { max-width: none; min-width: 0; }
 }
 
 .step-indicator-row {
   display: flex;
   width: 100%;
   align-items: center;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 @media (min-width: 768px) {
-  .step-indicator-row { padding: 1.25rem; }
+  .step-indicator-row { padding: 1rem; }
 }
 
 .step-content-default {
@@ -58,14 +59,14 @@
 }
 
 .step-default {
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
 
 @media (min-width: 768px) {
-  .step-default { padding-left: 2rem; padding-right: 2rem; }
+  .step-default { padding-left: 1rem; padding-right: 1rem; }
 }
 
 .footer-container {
