@@ -1,27 +1,23 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import DarkVeil from "@/components/DarkVeil";
 import { Button } from "@/components/ui/button";
+import ShinyText from "@/components/ShinyText";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import ShinyText from "@/components/ShinyText";
-import Stepper, { Step } from "@/components/Stepper";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const Form = () => {
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
-      {/* Background */}
       <div className="absolute inset-0">
-        <DarkVeil />
+        <DarkVeil speed={1.5} />
       </div>
 
-      {/* Overlay form: its own container (no surrounding card) */}
-      <div className="relative z-10 flex items-center justify-center min-h-screen p-4 text-white">
-        <div className="w-full flex flex-col items-center gap-6">
-          {/* Placeholder logo on top */}
-          <img src="/placeholder.svg" alt="Logo" className="h-16 w-auto opacity-90" />
-          <FormStepper />
+      <div className="relative z-10 flex items-center justify-center min-h-screen p-0 sm:p-2 text-white w-full">
+        <div className="w-full flex flex-col items-center gap-3 sm:gap-6">
+          <WelcomeCard />
           {/* Social links */}
           <div className="mt-2 flex items-center gap-6 opacity-90">
             <a href="#" aria-label="Instagram" className="text-white hover:opacity-100 opacity-80" target="_blank" rel="noreferrer">
@@ -45,112 +41,184 @@ const Form = () => {
 
 export default Form;
 
-const FormStepper = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+const WelcomeCard = () => {
+  const [step, setStep] = useState<0 | 1 | 2 | 3>(0);
+
+  // Step 1 fields
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+
+  // Step 2 fields
   const [experience, setExperience] = useState("beginner");
   const [obstacle, setObstacle] = useState("");
   const [notes, setNotes] = useState("");
-  const [completeSignal, setCompleteSignal] = useState(0);
+  // Seminar dates — add new dates here
+  const seminarDates: { value: string; label: string }[] = [
+    { value: "2025-12-13", label: "Dec 13, 2025" },
+  ];
+  const [seminarDate, setSeminarDate] = useState("none");
 
-  const handleComplete = () => {
-    console.log("Form submitted", { name, email, phone, experience, obstacle, notes });
-  };
+  const goNext = () => setStep((s) => (s === 0 ? 1 : s === 1 ? 2 : 3));
+  const goPrev = () => setStep((s) => (s === 2 ? 1 : s));
 
-  const isStepValid = (step: number) => {
-    if (step === 2) {
-      return name.trim().length > 1 && /.+@.+\..+/.test(email) && phone.trim().length >= 7;
-    }
-    if (step === 3) {
-      return experience.length > 0 && obstacle.trim().length > 2;
-    }
-    return true;
-  };
+  // Validation rules
+  const emailOk = /.+@.+\..+/.test(email.trim());
+  const phoneOk = phone.replace(/\D/g, "").length >= 7;
+  const step1Valid = firstName.trim().length > 0 && lastName.trim().length > 0 && emailOk && phoneOk;
+  const step2Valid = ["beginner", "part-time", "full-time"].includes(experience);
+
+  // Persist selections across refresh
+  const STORAGE_KEY = "welcomeFormState";
+  const STEP_KEY = "welcomeFormStep";
+
+  React.useEffect(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const saved = JSON.parse(raw);
+        if (typeof saved.firstName === "string") setFirstName(saved.firstName);
+        if (typeof saved.lastName === "string") setLastName(saved.lastName);
+        if (typeof saved.phone === "string") setPhone(saved.phone);
+        if (typeof saved.email === "string") setEmail(saved.email);
+        if (typeof saved.experience === "string") setExperience(saved.experience);
+        if (typeof saved.obstacle === "string") setObstacle(saved.obstacle);
+        if (typeof saved.notes === "string") setNotes(saved.notes);
+        if (typeof saved.seminarDate === "string") setSeminarDate(saved.seminarDate);
+      }
+      const savedStep = localStorage.getItem(STEP_KEY);
+      if (savedStep !== null) {
+        const n = Number(savedStep);
+        if ([0, 1, 2, 3].includes(n)) setStep(n as 0 | 1 | 2 | 3);
+      }
+    } catch {}
+  }, []);
+
+  React.useEffect(() => {
+    const payload = { firstName, lastName, phone, email, experience, obstacle, notes, seminarDate };
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      localStorage.setItem(STEP_KEY, String(step));
+    } catch {}
+  }, [firstName, lastName, phone, email, experience, obstacle, notes, seminarDate, step]);
 
   return (
-    <Stepper
-      initialStep={1}
-      onStepChange={() => {}}
-      onFinalStepCompleted={handleComplete}
-      isStepValid={isStepValid}
-      hideNextOnLastStep={true}
-      completeSignal={completeSignal}
-      backButtonText="Previous"
-      nextButtonText="Next"
-      renderCompleted={() => (
-        <div className="p-8 text-center">
-          <h2 className="text-3xl font-bold mb-2">Thank you!</h2>
-          <p className="text-white/80">We will be in touch soon.</p>
+    <div className="w-full flex items-center justify-center px-4 sm:px-6">
+      <div className={`w-full ${step === 3 ? 'max-w-xl' : 'max-w-3xl'} rounded-2xl px-5 sm:px-8 md:px-10 py-6 sm:py-8 md:py-10 bg-black/50 backdrop-blur-xl border border-white/10 shadow-xl`}>
+        {/* Logo inside (no box) */}
+        <div className="mb-6 flex justify-center">
+          <img src="/By.png" alt="BY Logo" className="h-16 w-auto opacity-90" />
         </div>
-      )}
-    >
-      <Step>
-        <div className="text-center py-2">
-          <h2 className="text-3xl font-bold mb-2">Welcome!</h2>
-          <p className="text-white/80">Let’s learn a bit about you and help you take the first step toward becoming a real estate rising star.</p>
-        </div>
-      </Step>
 
-      <Step>
-        <div className="space-y-4">
-          <h2 className="text-2xl font-semibold">Your Info</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="name" className="text-white">Name<span className="text-red-400"> *</span></Label>
-              <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" className="bg-white/10 text-white placeholder:text-white/50" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="phone" className="text-white">Phone<span className="text-red-400"> *</span></Label>
-              <Input id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="(555) 555-5555" className="bg-white/10 text-white placeholder:text-white/50" />
+        {step === 0 && (
+          <div className="text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Welcome.</h2>
+            <p className="text-white/85 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
+              Let's learn a bit more about you to put you on the path to becoming a real estate rising star.
+            </p>
+            <div className="mt-8">
+              <Button type="button" className="px-6 py-3 text-base md:text-lg font-bold" onClick={goNext}>
+                <ShinyText text="Get started" speed={2} />
+              </Button>
             </div>
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="email" className="text-white">Email<span className="text-red-400"> *</span></Label>
-            <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" className="bg-white/10 text-white placeholder:text-white/50" />
-          </div>
-        </div>
-      </Step>
+        )}
 
-      <Step>
-        <div className="space-y-4">
-          <h2 className="text-2xl font-semibold">Your Situation</h2>
-          <div className="space-y-2">
-            <Label className="text-white">Experience Level<span className="text-red-400"> *</span></Label>
-            <RadioGroup value={experience} onValueChange={setExperience} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              <div className="flex items-start gap-3 rounded-md border border-white/10 p-3">
-                <RadioGroupItem value="beginner" id="exp-beginner" />
-                <Label htmlFor="exp-beginner" className="text-white">Beginner</Label>
+        {step === 1 && (
+          <div className="text-white">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center">Tell us about you</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="firstName">First name</Label>
+                <Input id="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="John" className="bg-white/10 text-white placeholder:text-white/50" />
               </div>
-              <div className="flex items-start gap-3 rounded-md border border-white/10 p-3">
-                <RadioGroupItem value="part-time" id="exp-part" />
-                <Label htmlFor="exp-part" className="text-white">Part-time Realtor</Label>
+              <div className="space-y-2">
+                <Label htmlFor="lastName">Last name</Label>
+                <Input id="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="Doe" className="bg-white/10 text-white placeholder:text-white/50" />
               </div>
-              <div className="flex items-start gap-3 rounded-md border border-white/10 p-3">
-                <RadioGroupItem value="full-time" id="exp-full" />
-                <Label htmlFor="exp-full" className="text-white">Full-time Realtor</Label>
+              <div className="space-y-2">
+                <Label htmlFor="phone">Phone number</Label>
+                <Input id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="(555) 555-5555" className="bg-white/10 text-white placeholder:text-white/50" />
               </div>
-            </RadioGroup>
+              <div className="space-y-2">
+                <Label htmlFor="email">Email address</Label>
+                <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" className="bg-white/10 text-white placeholder:text-white/50" />
+              </div>
+            </div>
+            <div className="flex items-center justify-between gap-3 mt-8">
+              <Button type="button" variant="secondary" onClick={() => setStep(0)}>Previous</Button>
+              <Button type="button" onClick={goNext} disabled={!step1Valid}>Next</Button>
+            </div>
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="obstacle" className="text-white">What’s holding you back?</Label>
-            <Input id="obstacle" value={obstacle} onChange={(e) => setObstacle(e.target.value)} placeholder="Leads, consistency, skills, time..." className="bg-white/10 text-white placeholder:text-white/50" />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="notes" className="text-white">Notes</Label>
-            <Textarea id="notes" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Anything else we should know?" className="bg-white/10 text-white placeholder:text-white/50 min-h-[120px]" />
-          </div>
-        </div>
-      </Step>
+        )}
 
-      <Step>
-        <div className="space-y-6 text-center">
-          <h2 className="text-2xl font-semibold">Your first step to becoming a real estate rising star</h2>
-          <Button type="button" className="w-full font-bold py-6 text-lg" onClick={() => setCompleteSignal((n) => n + 1)}>
-            <ShinyText text="Submit" speed={3} />
-          </Button>
-        </div>
-      </Step>
-    </Stepper>
+        {step === 2 && (
+          <div className="text-white">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center">Your experience</h2>
+            <div className="space-y-2 mb-4">
+              <Label>Experience level</Label>
+              <RadioGroup value={experience} onValueChange={setExperience} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                <div className="flex items-start gap-3 rounded-md border border-white/10 p-3">
+                  <RadioGroupItem value="beginner" id="exp-beginner" />
+                  <Label htmlFor="exp-beginner" className="text-white">Beginner</Label>
+                </div>
+                <div className="flex items-start gap-3 rounded-md border border-white/10 p-3">
+                  <RadioGroupItem value="part-time" id="exp-part" />
+                  <Label htmlFor="exp-part" className="text-white">Part-time Realtor</Label>
+                </div>
+                <div className="flex items-start gap-3 rounded-md border border-white/10 p-3">
+                  <RadioGroupItem value="full-time" id="exp-full" />
+                  <Label htmlFor="exp-full" className="text-white">Full-time Realtor</Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div className="space-y-2 mb-4">
+              <Label htmlFor="obstacle">What’s holding you back right now?</Label>
+              <Textarea id="obstacle" value={obstacle} onChange={(e) => setObstacle(e.target.value)} placeholder="Leads, consistency, skills, time..." className="bg-white/10 text-white placeholder:text-white/50 min-h-[120px]" />
+            </div>
+
+            <div className="space-y-2 mb-6">
+              <Label htmlFor="notes">Notes</Label>
+              <Textarea id="notes" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Anything else we should know?" className="bg-white/10 text-white placeholder:text-white/50 min-h-[120px]" />
+            </div>
+
+            <div className="space-y-2 mb-2">
+              <Label>Choose a seminar date <span className="text-white/60">(optional)</span></Label>
+              <Select value={seminarDate} onValueChange={setSeminarDate}>
+                <SelectTrigger className="bg-white/10 text-white border-white/20">
+                  <SelectValue placeholder="Select a date" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="none">None</SelectItem>
+                  {seminarDates.map((d) => (
+                    <SelectItem key={d.value} value={d.value}>{d.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="flex items-center justify-between gap-3 mt-8">
+              <div className="flex gap-3">
+                <Button type="button" variant="secondary" onClick={goPrev}>Previous</Button>
+              </div>
+              <div className="flex gap-3">
+                <Button type="button" onClick={goNext} disabled={!step2Valid}>Next</Button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {step === 3 && (
+          <div className="text-center text-white">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Thank you!</h2>
+            <p className="text-white/85 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
+              You’ve taken your first step to becoming a real estate rising star.
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
