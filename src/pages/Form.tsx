@@ -59,8 +59,45 @@ const WelcomeCard = () => {
     { value: "2025-12-13", label: "Dec 13, 2025" },
   ];
   const [seminarDate, setSeminarDate] = useState("none");
+  const [submitting, setSubmitting] = useState(false);
 
-  const goNext = () => setStep((s) => (s === 0 ? 1 : s === 1 ? 2 : 3));
+  const postToSheets = async () => {
+    const url = 'https://script.google.com/macros/s/AKfycbzlfHt8qAF2tr1DsQ2kMpfkgpBTYKrbJ4mSAGObwYKgnNSGPRQis7Z0MhritYOVYbkZ/exec';
+    const payload = {
+      firstName,
+      lastName,
+      phone,
+      email,
+      experience,
+      obstacle,
+      notes,
+      seminarDate,
+    };
+    try {
+      await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        mode: 'no-cors',
+        body: JSON.stringify(payload),
+      });
+    } catch (e) {
+      // swallow errors to avoid blocking UX
+      // console.error('Sheets submission failed', e);
+    }
+  };
+
+  const goNext = async () => {
+    if (step === 0) return setStep(1);
+    if (step === 1) return setStep(2);
+    if (step === 2) {
+      if (!step2Valid || submitting) return;
+      setSubmitting(true);
+      await postToSheets();
+      setSubmitting(false);
+      return setStep(3);
+    }
+    setStep(3);
+  };
   const goPrev = () => setStep((s) => (s === 2 ? 1 : s));
 
   // Validation rules
@@ -78,14 +115,20 @@ const WelcomeCard = () => {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const saved = JSON.parse(raw);
-        if (typeof saved.firstName === "string") setFirstName(saved.firstName);
-        if (typeof saved.lastName === "string") setLastName(saved.lastName);
-        if (typeof saved.phone === "string") setPhone(saved.phone);
-        if (typeof saved.email === "string") setEmail(saved.email);
-        if (typeof saved.experience === "string") setExperience(saved.experience);
-        if (typeof saved.obstacle === "string") setObstacle(saved.obstacle);
-        if (typeof saved.notes === "string") setNotes(saved.notes);
-        if (typeof saved.seminarDate === "string") setSeminarDate(saved.seminarDate);
+        const ONE_HOUR = 60 * 60 * 1000;
+        if (typeof saved._ts === "number" && Date.now() - saved._ts > ONE_HOUR) {
+          localStorage.removeItem(STORAGE_KEY);
+          localStorage.removeItem(STEP_KEY);
+        } else {
+          if (typeof saved.firstName === "string") setFirstName(saved.firstName);
+          if (typeof saved.lastName === "string") setLastName(saved.lastName);
+          if (typeof saved.phone === "string") setPhone(saved.phone);
+          if (typeof saved.email === "string") setEmail(saved.email);
+          if (typeof saved.experience === "string") setExperience(saved.experience);
+          if (typeof saved.obstacle === "string") setObstacle(saved.obstacle);
+          if (typeof saved.notes === "string") setNotes(saved.notes);
+          if (typeof saved.seminarDate === "string") setSeminarDate(saved.seminarDate);
+        }
       }
       const savedStep = localStorage.getItem(STEP_KEY);
       if (savedStep !== null) {
@@ -96,7 +139,7 @@ const WelcomeCard = () => {
   }, []);
 
   React.useEffect(() => {
-    const payload = { firstName, lastName, phone, email, experience, obstacle, notes, seminarDate };
+    const payload = { firstName, lastName, phone, email, experience, obstacle, notes, seminarDate, _ts: Date.now() };
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
       localStorage.setItem(STEP_KEY, String(step));
@@ -204,7 +247,7 @@ const WelcomeCard = () => {
                 <Button type="button" variant="secondary" onClick={goPrev}>Previous</Button>
               </div>
               <div className="flex gap-3">
-                <Button type="button" onClick={goNext} disabled={!step2Valid}>Next</Button>
+                <Button type="button" onClick={goNext} disabled={!step2Valid || submitting}>{submitting ? 'Submitting...' : 'Next'}</Button>
               </div>
             </div>
           </div>
