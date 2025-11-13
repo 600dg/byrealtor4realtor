@@ -70,11 +70,16 @@ void main(){
     float scanline_val=sin(gl_FragCoord.y*uScanFreq)*0.5+0.5;
     col.rgb*=1.-(scanline_val*scanline_val)*uScan;
     col.rgb+=(rand(gl_FragCoord.xy+uTime)-0.5)*uNoise;
-    // Map to red-black palette for a darker, branded look
+    // Map to a red‑dominant palette with a subtle gold secondary
     float lum = dot(col.rgb, vec3(0.2126, 0.7152, 0.0722));
-    vec3 red = vec3(0.85, 0.05, 0.05);
-    vec3 mapped = mix(vec3(0.0), red, lum);
-    gl_FragColor=vec4(clamp(mapped,0.0,1.0),1.0);
+    vec3 deepRed = vec3(0.9, 0.06, 0.06);
+    vec3 darkRed = vec3(0.1, 0.0, 0.0);
+    vec3 gold = vec3(0.83, 0.69, 0.22);
+    vec3 redMapped = mix(darkRed, deepRed, clamp(lum * 1.2, 0.0, 1.0));
+    // Add more gold in the mid-high luminance range
+    float goldMix = smoothstep(0.3, 0.9, lum);
+    vec3 finalCol = mix(redMapped, gold, goldMix * 0.35);
+    gl_FragColor=vec4(clamp(finalCol,0.0,1.0),1.0);
 }
 `;
 
