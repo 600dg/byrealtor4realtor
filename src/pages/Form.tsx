@@ -11,16 +11,9 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 type Step = 0 | 1 | 2 | 3;
 
 const Form = () => {
-  const [isInstagram, setIsInstagram] = useState(false);
-  const [currentUrl, setCurrentUrl] = useState<string | null>(null);
-
   useEffect(() => {
-    if (typeof window !== "undefined" && typeof navigator !== "undefined") {
-      const ua = navigator.userAgent || "";
-      if (ua.toLowerCase().includes("instagram")) {
-        setIsInstagram(true);
-        setCurrentUrl(window.location.href);
-      }
+    if (typeof document !== "undefined") {
+      document.title = "Getting started";
     }
   }, []);
 
@@ -32,18 +25,6 @@ const Form = () => {
 
       <div className="relative z-10 flex items-center justify-center min-h-screen p-0 sm:p-2 text-white w-full">
         <div className="w-full flex flex-col items-center gap-3 sm:gap-6">
-          {isInstagram && currentUrl && (
-            <div className="w-full flex justify-center px-4">
-              <a
-                href={currentUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center rounded-full bg-white text-black text-xs sm:text-sm px-4 py-1 shadow-md mb-1"
-              >
-                Open this page in your browser
-              </a>
-            </div>
-          )}
           <WelcomeCard />
           {/* Social links */}
           <div className="mt-2 flex items-center gap-6 opacity-90">
