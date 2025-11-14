@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star, TrendingUp, Users } from "lucide-react";
-import { smoothScrollTo } from "@/lib/utils";
+import { goToGettingStarted } from "@/lib/utils";
 // Use public image for hero background
 
 const Hero = () => {
@@ -21,14 +21,14 @@ const Hero = () => {
       <div className="relative z-10 container mx-auto px-4 py-20 text-center">
         <div className="max-w-4xl mx-auto">
 
-          {/* Main Headline with red and gold */}
-          {/* New tagline */}
-          {/* Summary section */}
-              {/* Main focus: for realtors, by realtors. */}
-              <h2 className="text-6xl md:text-8xl font-extrabold text-primary mb-8 animate-slide-up text-center" style={{fontFamily: 'Playfair Display, serif'}}>
-                <span>For Realtors,</span><br />
-                <span>By Realtors.</span>
-              </h2>
+          {/* Main Headline replaced with logo image */}
+              <div className="mb-8 animate-slide-up flex justify-center">
+                <img
+                  src="/cropped logo.png"
+                  alt="By Realtors For Realtors"
+                  className="w-100 sm:w-200 md:w-[28rem] h-auto"
+                />
+              </div>
               <div className="mb-4 animate-slide-up text-center" style={{fontFamily: 'Inter, Arial, sans-serif'}}>
                 <h1 className="text-xl md:text-3xl font-bold text-white">
                   Transform Your Real Estate Career
@@ -47,7 +47,7 @@ const Hero = () => {
               size="xl" 
               className="group bg-primary text-white text-xl px-8 py-4 rounded-full shadow-lg hover:bg-secondary hover:text-white transition-all" 
               style={{fontFamily: 'Inter, sans-serif'}}
-              onClick={() => smoothScrollTo('lead-capture')}
+              onClick={() => goToGettingStarted(1)}
             >
               <span className="text-white">Join the team and grow</span>
             </Button>
