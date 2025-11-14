@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Target, Zap, Shield, Trophy, ArrowRight, Users, BarChart3, HeadphonesIcon, Megaphone, MegaphoneOffIcon } from "lucide-react";
 import { HomeModernIcon } from "@heroicons/react/24/solid";
-import { smoothScrollTo } from "@/lib/utils";
+import { goToGettingStarted } from "@/lib/utils";
 import { MegaphoneIcon, RocketLaunchIcon, Squares2X2Icon} from "@heroicons/react/24/outline";
 
 const Services = () => {
@@ -31,21 +31,24 @@ const Services = () => {
   ];
 
   return (
-  <section id="services" className="py-20" style={{background: 'linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 50%, rgba(164,52,52,0.1) 100%)'}}>
+  <section
+    id="services"
+    className="py-20"
+  >
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center space-x-2 bg-primary/10 rounded-full px-6 py-3 mb-6" style={{fontFamily: 'Inter, Arial, sans-serif'}}>
-            <HomeModernIcon className="w-5 h-5 text-primary" />
-            <span className="text-primary font-semibold">Complete Real Estate Solution</span>
+            <HomeModernIcon className="w-5 h-5 text-[#b69532]" />
+            <span className="text-[#b69532] font-semibold">Complete Real Estate Solution</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
             Everything You Need to 
-            <span className="text-primary"> Dominate Your Market</span>
+            <span className="text-[#b69532]"> Dominate Your Market</span>
           </h2>
             <p className="text-xl text-black max-w-3xl mx-auto text-center" style={{fontFamily: 'Inter, Arial, sans-serif'}}>
               Our comprehensive platform provides all the tools<br />
-              you need to become a <span className="text-secondary font-semibold">top producing realtor</span> in your area.
+              you need to become a <span className="text-[#b69532] font-semibold">top producing realtor</span> in your area.
             </p>
         </div>
 
@@ -75,9 +78,9 @@ const Services = () => {
                 </ul>
                 <Button 
                   variant="outline" 
-                  className="w-full group font-bold" 
+                  className="w-full group font-bold text-[#b69532]" 
                   style={{fontFamily: 'Playfair Display, serif'}}
-                  onClick={() => smoothScrollTo('lead-capture')}
+                  onClick={() => goToGettingStarted(1)}
                 >
                   {service.cta}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
