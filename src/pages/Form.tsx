@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import DarkVeil from "@/components/DarkVeil";
-import TopBanner from "@/components/TopBanner";
 import { Button } from "@/components/ui/button";
 import ShinyText from "@/components/ShinyText";
 import { Input } from "@/components/ui/input";
@@ -19,62 +18,59 @@ const Form = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
-      <TopBanner showFormLink={false} />
-      <div className="relative min-h-screen w-full overflow-hidden">
-        <div className="absolute inset-0">
-          <DarkVeil speed={1.5} />
-        </div>
+    <div className="relative min-h-screen w-full overflow-hidden">
+      <div className="absolute inset-0">
+        <DarkVeil speed={1.5} />
+      </div>
 
-        <div className="relative z-10 flex items-center justify-center min-h-screen p-0 sm:p-2 text-white w-full">
-          <div className="w-full flex flex-col items-center gap-3 sm:gap-6">
-            {/* Event banner image */}
-            <div className="w-full max-w-4xl px-4 sm:px-6 mt-4">
-              <img
-                src="/free-seminar-banner.png"
-                alt="Free Seminar on December 13, 2025 at Monte Carlo Inn, Brampton"
-                className="w-full h-auto rounded-xl shadow-xl"
-              />
-            </div>
-            <WelcomeCard />
-            {/* Social links */}
-            <div className="mt-2 flex items-center gap-6 opacity-90">
-              <a
-                href="https://www.instagram.com/byrealtors4realtors/"
-                aria-label="Instagram"
-                className="text-white hover:opacity-100 opacity-80"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5z"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  />
-                  <path
-                    d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  />
-                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
-                </svg>
-              </a>
-              <a
-                href="https://www.facebook.com/byrealtors4realtors"
-                aria-label="Facebook"
-                className="text-white hover:opacity-100 opacity-80"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2.2V12h2.2V9.8c0-2.2 1.3-3.4 3.3-3.4.96 0 1.96.17 1.96.17v2.15h-1.1c-1.08 0-1.41.67-1.41 1.36V12h2.4l-.38 2.9h-2.02v7A10 10 0 0 0 22 12z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </a>
-            </div>
+      <div className="relative z-10 flex items-center justify-center min-h-screen p-0 sm:p-2 text-white w-full">
+        <div className="w-full flex flex-col items-center gap-3 sm:gap-6">
+          {/* Event banner image */}
+          <div className="w-full max-w-4xl px-4 sm:px-6 mt-4">
+            <img
+              src="/free-seminar-banner.png"
+              alt="Free Seminar on December 13, 2025 at Monte Carlo Inn, Brampton"
+              className="w-full h-auto rounded-xl shadow-xl"
+            />
+          </div>
+          <WelcomeCard />
+          {/* Social links */}
+          <div className="mt-2 flex items-center gap-6 opacity-90">
+            <a
+              href="https://www.instagram.com/byrealtors4realtors/"
+              aria-label="Instagram"
+              className="text-white hover:opacity-100 opacity-80"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5z"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
+                <path
+                  d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+              </svg>
+            </a>
+            <a
+              href="https://www.facebook.com/byrealtors4realtors"
+              aria-label="Facebook"
+              className="text-white hover:opacity-100 opacity-80"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2.2V12h2.2V9.8c0-2.2 1.3-3.4 3.3-3.4.96 0 1.96.17 1.96.17v2.15h-1.1c-1.08 0-1.41.67-1.41 1.36V12h2.4l-.38 2.9h-2.02v7A10 10 0 0 0 22 12z"
+                  fill="currentColor"
+                />
+              </svg>
+            </a>
           </div>
         </div>
       </div>
@@ -139,10 +135,9 @@ export const WelcomeCard = () => {
   const STORAGE_KEY = "welcomeFormState";
   const STEP_KEY = "welcomeFormStep";
 
-  // load persisted state (with 1-hour expiry), and respect URL ?step= / ?noExpiry= query
+  // load persisted state and respect URL ?step= query
   useEffect(() => {
     try {
-      let ignoreExpiry = false;
       let stepFromQuery: number | null = null;
 
       if (typeof window !== "undefined") {
@@ -154,28 +149,19 @@ export const WelcomeCard = () => {
             stepFromQuery = n;
           }
         }
-        if (params.get("noExpiry") === "1") {
-          ignoreExpiry = true;
-        }
       }
 
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const saved = JSON.parse(raw);
-        const ONE_HOUR = 60 * 60 * 1000;
-        if (!ignoreExpiry && typeof saved._ts === "number" && Date.now() - saved._ts > ONE_HOUR) {
-          localStorage.removeItem(STORAGE_KEY);
-          localStorage.removeItem(STEP_KEY);
-        } else {
-          if (typeof saved.firstName === "string") setFirstName(saved.firstName);
-          if (typeof saved.lastName === "string") setLastName(saved.lastName);
-          if (typeof saved.phone === "string") setPhone(saved.phone);
-          if (typeof saved.email === "string") setEmail(saved.email);
-          if (typeof saved.experience === "string") setExperience(saved.experience);
-          if (typeof saved.obstacle === "string") setObstacle(saved.obstacle);
-          if (Array.isArray(saved.scores)) setScores(saved.scores);
-          if (typeof saved.seminarDate === "string") setSeminarDate(saved.seminarDate);
-        }
+        if (typeof saved.firstName === "string") setFirstName(saved.firstName);
+        if (typeof saved.lastName === "string") setLastName(saved.lastName);
+        if (typeof saved.phone === "string") setPhone(saved.phone);
+        if (typeof saved.email === "string") setEmail(saved.email);
+        if (typeof saved.experience === "string") setExperience(saved.experience);
+        if (typeof saved.obstacle === "string") setObstacle(saved.obstacle);
+        if (Array.isArray(saved.scores)) setScores(saved.scores);
+        if (typeof saved.seminarDate === "string") setSeminarDate(saved.seminarDate);
       }
 
       const savedStep = localStorage.getItem(STEP_KEY);
@@ -232,7 +218,11 @@ export const WelcomeCard = () => {
       <div
         className={`w-full ${
           step === 3 ? "max-w-xl" : "max-w-3xl"
-        } rounded-2xl px-5 sm:px-8 md:px-10 py-6 sm:py-8 md:py-10 bg-black/50 backdrop-blur-xl border border-white/10 shadow-xl`}
+        } rounded-2xl px-5 sm:px-8 md:px-10 py-6 sm:py-8 md:py-10 border border-border/20 shadow-xl text-white`}
+        style={{
+          background: "rgba(30, 20, 20, 0.9)",
+          backdropFilter: "blur(12px)",
+        }}
       >
         {/* Logo inside (no box) */}
         <div className="mb-6 flex justify-center">
@@ -254,8 +244,8 @@ export const WelcomeCard = () => {
         )}
 
         {step === 1 && (
-          <div className="text-white">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center">Tell us about you</h2>
+          <div className="text-white text-left">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6">Tell us about you</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="firstName">
@@ -267,7 +257,7 @@ export const WelcomeCard = () => {
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   placeholder="John"
-                  className="bg-white/10 text-white placeholder:text-white/50"
+                  className="bg-white text-black placeholder:text-black/40 border border-black/10"
                 />
               </div>
               <div className="space-y-2">
@@ -280,7 +270,7 @@ export const WelcomeCard = () => {
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   placeholder="Doe"
-                  className="bg-white/10 text-white placeholder:text-white/50"
+                  className="bg-white text-black placeholder:text-black/40 border border-black/10"
                 />
               </div>
               <div className="space-y-2">
@@ -293,7 +283,7 @@ export const WelcomeCard = () => {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="(555) 555-5555"
-                  className="bg-white/10 text-white placeholder:text-white/50"
+                  className="bg-white text-black placeholder:text-black/40 border border-black/10"
                 />
               </div>
               <div className="space-y-2">
@@ -307,7 +297,7 @@ export const WelcomeCard = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="bg-white/10 text-white placeholder:text-white/50"
+                  className="bg-white text-black placeholder:text-black/40 border border-black/10"
                 />
               </div>
             </div>
@@ -323,28 +313,8 @@ export const WelcomeCard = () => {
         )}
 
         {step === 2 && (
-          <div className="text-white">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center">Your experience</h2>
-
-            {/* Seminar date at top */}
-            <div className="space-y-2 mb-4">
-              <Label>
-                Choose a seminar date <span className="text-white/60">(optional)</span>
-              </Label>
-              <Select value={seminarDate} onValueChange={setSeminarDate}>
-                <SelectTrigger className="bg-white/10 text-white border-white/20">
-                  <SelectValue placeholder="Select a date" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="none">None</SelectItem>
-                  {seminarDates.map((d) => (
-                    <SelectItem key={d.value} value={d.value}>
-                      {d.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+          <div className="text-white text-left">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6">Your experience</h2>
 
             {/* What's holding you back */}
             <div className="space-y-2 mb-4">
@@ -358,7 +328,7 @@ export const WelcomeCard = () => {
                 value={obstacle}
                 onChange={(e) => setObstacle(e.target.value)}
                 placeholder="Leads, consistency, skills, time..."
-                className="bg-white/10 text-white placeholder:text-white/50 min-h-[120px]"
+                className="bg-white text-black placeholder:text-black/40 min-h-[120px] border border-black/10"
               />
             </div>
 
@@ -368,7 +338,7 @@ export const WelcomeCard = () => {
                 Experience level <span className="text-[#b69532]">*</span>
               </Label>
               <Select value={experience} onValueChange={setExperience}>
-                <SelectTrigger className="bg-white/10 text-white border-white/20">
+                <SelectTrigger className="bg-white text-black border border-black/10">
                   <SelectValue placeholder="Select experience" />
                 </SelectTrigger>
                 <SelectContent>
@@ -413,23 +383,42 @@ export const WelcomeCard = () => {
                   </div>
                 </div>
               </TooltipProvider>
-              <div className="flex gap-2 justify-between">
+              <div className="flex flex-wrap justify-center md:justify-between gap-2 sm:gap-3">
                 {scores.map((val, idx) => (
                   <Input
                     key={idx}
                     type="number"
                     min={0}
-                    max={99}
+                    max={49}
                     step={1}
                     inputMode="numeric"
                     pattern="[0-9]*"
                     value={val}
                     onChange={(e) => {
+                      let raw = e.target.value.replace(/\D/g, "");
+
+                      if (raw.length > 2) {
+                        raw = raw.slice(0, 2);
+                      }
+
+                      if (raw === "") {
+                        const next = [...scores];
+                        next[idx] = "";
+                        setScores(next);
+                        return;
+                      }
+
+                      let num = Number(raw);
+                      if (num > 49) {
+                        alert("Please enter a number between 0 and 49.");
+                        num = 49;
+                      }
+
                       const next = [...scores];
-                      next[idx] = e.target.value;
+                      next[idx] = String(num);
                       setScores(next);
                     }}
-                    className="w-12 bg-white/10 text-white placeholder:text-white/50 text-center"
+                    className="w-10 sm:w-12 md:w-16 bg-white text-black placeholder:text-black/40 text-center border border-black/10"
                   />
                 ))}
               </div>
