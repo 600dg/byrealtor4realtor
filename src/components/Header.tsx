@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
+import { goToGettingStarted } from "@/lib/utils";
 
 // Smooth scroll function with header offset
 const smoothScrollTo = (elementId: string) => {
@@ -19,7 +21,9 @@ const Header = () => {
 
   return (
     <header
-      className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 rounded-2xl shadow-2xl border border-border/20"
+      className={`fixed left-1/2 transform -translate-x-1/2 z-50 rounded-2xl shadow-2xl border border-border/20 transition-all duration-300 ${
+        isCompact ? "top-4" : "top-16 md:top-20"
+      }`}
       style={{
         background: "rgba(30, 20, 20, 0.9)",
         backdropFilter: "blur(12px)",
