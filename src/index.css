@@ -163,6 +163,9 @@
 
   body {
     @apply bg-background text-foreground;
+    /* Force a solid dark backing so Safari/iOS safe-areas never show white */
+    background-color: #000000;
+    min-height: 100vh;
     font-family: 'Playfair Display', serif;
     font-feature-settings: 'cv11', 'ss01';
     text-rendering: optimizeLegibility;
@@ -195,6 +198,20 @@
   /* Smooth scrolling */
   html {
     scroll-behavior: smooth;
+    /* Match body background so overscroll / under bars stay dark */
+    background-color: #000000;
+  }
+
+  /* Hide native spinners on number inputs */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
   }
 
   /* Hide native spinners on number inputs */

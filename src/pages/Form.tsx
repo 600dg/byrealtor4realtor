@@ -28,6 +28,14 @@ const Form = () => {
 
         <div className="relative z-10 flex items-center justify-center min-h-screen p-0 sm:p-2 text-white w-full">
           <div className="w-full flex flex-col items-center gap-3 sm:gap-6">
+            {/* Event banner image */}
+            <div className="w-full max-w-4xl px-4 sm:px-6 mt-4">
+              <img
+                src="/free-seminar-banner.png"
+                alt="Free Seminar on December 13, 2025 at Monte Carlo Inn, Brampton"
+                className="w-full h-auto rounded-xl shadow-xl"
+              />
+            </div>
             <WelcomeCard />
             {/* Social links */}
             <div className="mt-2 flex items-center gap-6 opacity-90">
