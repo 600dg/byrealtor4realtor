@@ -28,8 +28,8 @@ const Form = () => {
           {/* Event banner image */}
           <div className="w-full max-w-4xl px-4 sm:px-6 mt-4">
             <img
-              src="/free-seminar-banner.png"
-              alt="Free Seminar on December 13, 2025 at Monte Carlo Inn, Brampton"
+              src="/Join Us Live Event December 13(1).jpg"
+              alt="Join us live event on December 13, 2025"
               className="w-full h-auto rounded-xl shadow-xl"
             />
           </div>
