@@ -9,6 +9,28 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 type Step = 0 | 1 | 2 | 3;
+type BasePayload = {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  experience: string;
+  obstacle: string;
+  scores: string[];
+  seminarDate: string;
+};
+
+type ExtraPayloadInput = Record<string, unknown> | ((payload: BasePayload) => Record<string, unknown>);
+
+type WelcomeCardProps = {
+  storageKey?: string;
+  stepStorageKey?: string;
+  submissionTarget?: string;
+  extraPayload?: ExtraPayloadInput;
+};
+
+export const DEFAULT_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbzlfHt8qAF2tr1DsQ2kMpfkgpBTYKrbJ4mSAGObwYKgnNSGPRQis7Z0MhritYOVYbkZ/exec";
 
 const Form = () => {
   useEffect(() => {
@@ -80,7 +102,12 @@ const Form = () => {
 
 export default Form;
 
-export const WelcomeCard = () => {
+export const WelcomeCard = ({
+  storageKey = "welcomeFormState",
+  stepStorageKey = "welcomeFormStep",
+  submissionTarget = DEFAULT_SCRIPT_URL,
+  extraPayload,
+}: WelcomeCardProps = {}) => {
   const [step, setStep] = useState<Step>(0);
 
   // Step 1 fields
@@ -103,9 +130,7 @@ export const WelcomeCard = () => {
   const [luckyInfoOpen, setLuckyInfoOpen] = useState(false);
 
   const postToSheets = async () => {
-    const url =
-      "https://script.google.com/macros/s/AKfycbzlfHt8qAF2tr1DsQ2kMpfkgpBTYKrbJ4mSAGObwYKgnNSGPRQis7Z0MhritYOVYbkZ/exec";
-    const payload = {
+    const basePayload: BasePayload = {
       firstName,
       lastName,
       phone,
@@ -115,8 +140,14 @@ export const WelcomeCard = () => {
       scores,
       seminarDate,
     };
+    const resolvedExtras =
+      typeof extraPayload === "function" ? extraPayload(basePayload) : extraPayload;
+    const payload = {
+      ...basePayload,
+      ...(resolvedExtras ?? {}),
+    };
     try {
-      await fetch(url, {
+      await fetch(submissionTarget, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         mode: "no-cors",
@@ -132,8 +163,8 @@ export const WelcomeCard = () => {
   const step1Valid = firstName.trim().length > 0 && lastName.trim().length > 0 && emailOk && phoneOk;
   const step2Valid = ["beginner", "part-time", "full-time"].includes(experience) && obstacle.trim().length > 0;
 
-  const STORAGE_KEY = "welcomeFormState";
-  const STEP_KEY = "welcomeFormStep";
+  const STORAGE_KEY = storageKey;
+  const STEP_KEY = stepStorageKey;
 
   // load persisted state and respect URL ?step= query
   useEffect(() => {
@@ -196,7 +227,7 @@ export const WelcomeCard = () => {
     } catch {
       // ignore
     }
-  }, [firstName, lastName, phone, email, experience, obstacle, scores, seminarDate, step]);
+  }, [STORAGE_KEY, STEP_KEY, firstName, lastName, phone, email, experience, obstacle, scores, seminarDate, step]);
 
   const goPrev = () => setStep((s) => (s === 2 ? 1 : s));
 
