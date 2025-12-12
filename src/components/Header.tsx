@@ -33,8 +33,8 @@ const Header = () => {
           style={{ fontFamily: "Inter, Arial, sans-serif" }}
         >
           {/* Logo */}
-          <div className="flex items-center justify-between w-full md:w-auto">
-            <a href="#">
+          <div className="flex items-center justify-between w-full md:w-auto gap-3">
+            <a href="/" aria-label="Go to homepage">
               <img
                 src="/By.png"
                 alt="Main Logo"
@@ -42,25 +42,40 @@ const Header = () => {
               />
             </a>
             {/* Mobile-only primary action */}
-            <Button 
-              variant="default" 
-              size="sm" 
-              className="ml-3 text-base font-bold bg-[#a43434] hover:bg-[#b69532] text-white transition-colors md:hidden"
-              onClick={() => smoothScrollTo('lead-capture')}
-            >
-              BE THE BOSS
-            </Button>
+            <div className="flex items-center gap-2 md:hidden">
+              <Button 
+                asChild
+                variant="outline"
+                size="sm"
+                className="text-xs font-semibold text-white border-white/60 hover:text-black hover:bg-white/90"
+              >
+                <a href="/sign-in">Sign In</a>
+              </Button>
+              <Button 
+                variant="default" 
+                size="sm" 
+                className="text-base font-bold bg-[#a43434] hover:bg-[#b69532] text-white transition-colors"
+                onClick={() => smoothScrollTo('lead-capture')}
+              >
+                BE THE BOSS
+              </Button>
+            </div>
           </div>
           
           {/* Navigation + Right-side actions */}
-          <div className="hidden md:flex items-center justify-end space-x-10 w-full md:w-auto">
+          <div className="hidden md:flex items-center justify-end space-x-6 w-full md:w-auto">
+            <Button 
+              asChild
+              variant="outline" 
+              size="sm"
+              className="border-white/60 text-white hover:bg-white hover:text-black"
+            >
+              <a href="/sign-in">Sign In</a>
+            </Button>
+            <div className="flex items-center text-lg md:text-xl font-bold text-white" style={{ fontFamily: "Inter, sans-serif" }}>
+              <span>905-793-0075</span>
+            </div>
             <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-10 justify-end">
-              <div
-                className="flex items-center text-lg md:text-xl font-bold text-white"
-                style={{ fontFamily: "Inter, sans-serif" }}
-              >
-                <span>905-793-0075</span>
-              </div>
               <Button 
                 variant="default" 
                 size="lg" 
