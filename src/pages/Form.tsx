@@ -29,7 +29,7 @@ type WelcomeCardProps = {
 };
 
 export const DEFAULT_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzlfHt8qAF2tr1DsQ2kMpfkgpBTYKrbJ4mSAGObwYKgnNSGPRQis7Z0MhritYOVYbkZ/exec";
+  "https://script.google.com/macros/s/AKfycbz43BA3aXtHwNXNyxdIQ0irk3uzFuZZctAHXrrygIF807KzZgv62VkH_0HyzdDz4bLK/exec";
 
 const Form = () => {
   useEffect(() => {
