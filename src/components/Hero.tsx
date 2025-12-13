@@ -17,19 +17,6 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center">
         <div className="max-w-5xl mx-auto flex flex-col items-center gap-8">
-          {/* Clickable event banner linking to form */}
-          <button
-            type="button"
-            onClick={() => smoothScrollTo("lead-capture")}
-            className="w-full block"
-          >
-            <img
-              src="/Join Us Live Event December 13(1).jpg"
-              alt="Join us live event on December 13, 2025"
-              className="w-full h-auto"
-            />
-          </button>
-
           {/* Embedded form from Form.tsx */}
           <div id="lead-capture" className="w-full flex justify-center">
             <WelcomeCard />

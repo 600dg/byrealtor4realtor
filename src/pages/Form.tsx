@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 type Step = 0 | 1 | 2 | 3;
 type BasePayload = {
@@ -16,7 +15,7 @@ type BasePayload = {
   email: string;
   experience: string;
   obstacle: string;
-  scores: string[];
+  preferredContactMethods: string[];
   seminarDate: string;
 };
 
@@ -47,14 +46,6 @@ const Form = () => {
 
       <div className="relative z-10 flex items-center justify-center min-h-screen p-0 sm:p-2 text-white w-full">
         <div className="w-full flex flex-col items-center gap-3 sm:gap-6">
-          {/* Event banner image */}
-          <div className="w-full max-w-4xl px-4 sm:px-6 mt-4">
-            <img
-              src="/Join Us Live Event December 13(1).jpg"
-              alt="Join us live event on December 13, 2025"
-              className="w-full h-auto rounded-xl shadow-xl"
-            />
-          </div>
           <WelcomeCard />
           {/* Social links */}
           <div className="mt-2 flex items-center gap-6 opacity-90">
@@ -119,7 +110,7 @@ export const WelcomeCard = ({
   // Step 2 fields
   const [experience, setExperience] = useState("none");
   const [obstacle, setObstacle] = useState("");
-  const [scores, setScores] = useState<string[]>(["", "", "", "", "", ""]);
+  const [preferredContactMethods, setPreferredContactMethods] = useState<string[]>([]);
 
   // Seminar dates — add new dates here
   const seminarDates: { value: string; label: string }[] = [
@@ -127,7 +118,6 @@ export const WelcomeCard = ({
   ];
   const [seminarDate, setSeminarDate] = useState("none");
   const [submitting, setSubmitting] = useState(false);
-  const [luckyInfoOpen, setLuckyInfoOpen] = useState(false);
 
   const postToSheets = async () => {
     const basePayload: BasePayload = {
@@ -137,7 +127,7 @@ export const WelcomeCard = ({
       email,
       experience,
       obstacle,
-      scores,
+      preferredContactMethods,
       seminarDate,
     };
     const resolvedExtras =
@@ -161,7 +151,10 @@ export const WelcomeCard = ({
   const emailOk = /.+@.+\..+/.test(email.trim());
   const phoneOk = phone.replace(/\D/g, "").length >= 7;
   const step1Valid = firstName.trim().length > 0 && lastName.trim().length > 0 && emailOk && phoneOk;
-  const step2Valid = ["beginner", "part-time", "full-time"].includes(experience) && obstacle.trim().length > 0;
+  const step2Valid =
+    ["beginner", "part-time", "full-time"].includes(experience) &&
+    obstacle.trim().length > 0 &&
+    preferredContactMethods.length > 0;
 
   const STORAGE_KEY = storageKey;
   const STEP_KEY = stepStorageKey;
@@ -191,7 +184,9 @@ export const WelcomeCard = ({
         if (typeof saved.email === "string") setEmail(saved.email);
         if (typeof saved.experience === "string") setExperience(saved.experience);
         if (typeof saved.obstacle === "string") setObstacle(saved.obstacle);
-        if (Array.isArray(saved.scores)) setScores(saved.scores);
+        if (Array.isArray(saved.preferredContactMethods)) {
+          setPreferredContactMethods(saved.preferredContactMethods);
+        }
         if (typeof saved.seminarDate === "string") setSeminarDate(saved.seminarDate);
       }
 
@@ -217,7 +212,7 @@ export const WelcomeCard = ({
       email,
       experience,
       obstacle,
-      scores,
+      preferredContactMethods,
       seminarDate,
       _ts: Date.now(),
     };
@@ -227,7 +222,23 @@ export const WelcomeCard = ({
     } catch {
       // ignore
     }
-  }, [STORAGE_KEY, STEP_KEY, firstName, lastName, phone, email, experience, obstacle, scores, seminarDate, step]);
+  }, [STORAGE_KEY, STEP_KEY, firstName, lastName, phone, email, experience, obstacle, preferredContactMethods, seminarDate, step]);
+
+  // Allow external "BE THE BOSS" CTA to advance the form by one step
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handler = () => {
+      setStep((prev) => {
+        if (prev === 3) return prev;
+        const next = (prev + 1) as Step;
+        return next;
+      });
+    };
+
+    window.addEventListener("beTheBossAdvance", handler);
+    return () => window.removeEventListener("beTheBossAdvance", handler);
+  }, []);
 
   const goPrev = () => setStep((s) => (s === 2 ? 1 : s));
 
@@ -255,11 +266,6 @@ export const WelcomeCard = ({
           backdropFilter: "blur(12px)",
         }}
       >
-        {/* Logo inside (no box) */}
-        <div className="mb-6 flex justify-center">
-          <img src="/By.png" alt="BY Logo" className="h-16 w-auto opacity-90" />
-        </div>
-
         {step === 0 && (
           <div className="text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Welcome.</h2>
@@ -381,77 +387,40 @@ export const WelcomeCard = ({
               </Select>
             </div>
 
-            {/* Six number inputs side by side */}
+            {/* Preferred contact methods (multi-select, required) */}
             <div className="space-y-2 mb-6">
-              <TooltipProvider>
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2">
-                    <Label>Lucky numbers</Label>
-                    <span className="text-white/60 text-sm">(optional)</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <img
-                      src="/lotto-649-logo-png-transparent.png"
-                      alt="Lotto 6/49 logo"
-                      className="h-6 w-auto rounded-sm bg-white/10 px-1 py-0.5"
-                    />
-                    <Tooltip open={luckyInfoOpen} onOpenChange={setLuckyInfoOpen}>
-                      <TooltipTrigger asChild>
-                        <button
-                          type="button"
-                          className="inline-flex items-center justify-center h-6 w-6 rounded-full border border-white/30 text-xs text-white/80 cursor-pointer bg-black/40 hover:bg-black/60"
-                          aria-label="Lucky numbers info"
-                          onClick={() => setLuckyInfoOpen((prev) => !prev)}
-                        >
-                          i
-                        </button>
-                      </TooltipTrigger>
-                      <TooltipContent side="top" align="end" className="max-w-xs text-center">
-                        We&apos;ll buy a Lotto 6/49 ticket for everyone who signs up for the event. Give us the 6 lucky
-                        numbers you think will win.
-                      </TooltipContent>
-                    </Tooltip>
-                  </div>
-                </div>
-              </TooltipProvider>
-              <div className="flex flex-wrap justify-center md:justify-between gap-2 sm:gap-3">
-                {scores.map((val, idx) => (
-                  <Input
-                    key={idx}
-                    type="number"
-                    min={0}
-                    max={49}
-                    step={1}
-                    inputMode="numeric"
-                    pattern="[0-9]*"
-                    value={val}
-                    onChange={(e) => {
-                      let raw = e.target.value.replace(/\D/g, "");
-
-                      if (raw.length > 2) {
-                        raw = raw.slice(0, 2);
-                      }
-
-                      if (raw === "") {
-                        const next = [...scores];
-                        next[idx] = "";
-                        setScores(next);
-                        return;
-                      }
-
-                      let num = Number(raw);
-                      if (num > 49) {
-                        alert("Please enter a number between 0 and 49.");
-                        num = 49;
-                      }
-
-                      const next = [...scores];
-                      next[idx] = String(num);
-                      setScores(next);
-                    }}
-                    className="w-10 sm:w-12 md:w-16 bg-white text-black placeholder:text-black/40 text-center border border-black/10"
-                  />
-                ))}
+              <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-2">
+                <Label>Which contact method do you prefer?</Label>
+                <span className="text-white/70 text-sm md:ml-2">(choose all that apply)</span>
+              </div>
+              <div className="flex flex-wrap gap-3 mt-2">
+                {[
+                  { value: "SMS", label: "SMS" },
+                  { value: "Email", label: "Email" },
+                  { value: "Call", label: "Call" },
+                ].map((method) => {
+                  const checked = preferredContactMethods.includes(method.value);
+                  return (
+                    <label
+                      key={method.value}
+                      className="inline-flex items-center gap-2 cursor-pointer select-none"
+                    >
+                      <input
+                        type="checkbox"
+                        className="h-4 w-4 rounded border border-white/60 bg-black/40"
+                        checked={checked}
+                        onChange={() => {
+                          setPreferredContactMethods((prev) =>
+                            checked
+                              ? prev.filter((m) => m !== method.value)
+                              : [...prev, method.value]
+                          );
+                        }}
+                      />
+                      <span className="text-sm">{method.label}</span>
+                    </label>
+                  );
+                })}
               </div>
             </div>
 
